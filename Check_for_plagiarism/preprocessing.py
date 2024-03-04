@@ -1,7 +1,7 @@
-import jieba
-import string
-import re
-
+import jieba # 中文分词库
+import string # 英文标点符号
+import re # 正则表达式 主要去代码块中注释
+#针对于中文 英文 和代码块的预处理
 class preprocessing:
     @staticmethod
     def pre_set_chinese(s):
