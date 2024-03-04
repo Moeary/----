@@ -1,4 +1,4 @@
-![image](https://github.com/Moeary/compiler_homework/assets/103913682/38fb16db-65c1-43a4-a604-d1fb2b205e24)### 使用方法
+### 使用方法
 确保你的电脑具有Python环境且Python版本>3.7,具有Gradio等包
 ```python
 python check.py
