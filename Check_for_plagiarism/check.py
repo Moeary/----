@@ -40,16 +40,13 @@ def process_text(text1, text2, method, n):
 
     # 打印集合
     print(intersection)
-    print(union)
-
-    print(result1)
-    print(result2)
+    print(len(intersection))
     
     # 创建输出字符串
     result1 = ' '.join([f'{{{ngram}, red}}' if ngram in intersection else f'{{{ngram}, none}}' for ngram in ngrams(result1, n)])
     result2 = ' '.join([f'{{{ngram}, red}}' if ngram in intersection else f'{{{ngram}, none}}' for ngram in ngrams(result2, n)])
     # 返回两个结果和重复率
-    return result1, result2, similarity
+    return result1, result2, "{:.2%}".format(similarity)
 
 if __name__ == "__main__":
     iface = gr.Interface(fn=process_text, 
