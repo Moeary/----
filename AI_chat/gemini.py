@@ -2,7 +2,7 @@ import gradio as gr
 import google.generativeai as genai
 
 def get_api():
-    GOOGLE_API_KEY='AIzaSyBbhzxntn7HMtlAT89OfPWXEEn8Xj6m1vU'
+    GOOGLE_API_KEY=''
     genai.configure(api_key=GOOGLE_API_KEY)
 
 def generate_content(question,model_name):
