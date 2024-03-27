@@ -63,5 +63,5 @@ def text_to_speech(text, output_audio_filename):
 
 
 # Call the function
-speech_to_text('output.wav')
-#text_to_speech('Gemma模型作为一系列开放式生成语言模型，不仅在性能和安全性方面取得了显著进步，也在负责任的技术发展方面树立了标杆。通过广泛的安全评估和缓解措施，Gemma模型旨在为社区带来正面影响，尽管其发布的不可逆性和潜在风险仍需持续监控和评估。Gemma模型在多个领域展现了卓越的性能，特别是在对话、推理、数学和代码生成等任务上。此外，Gemma项目鼓励研究和开发的进一步探索，以发现新的应用案例和功能，同时也指出了大型语言模型发展中的挑战和未来研究方向。', 'output.wav')
+#speech_to_text('output.wav')
+text_to_speech('我的梦想是', 'output.wav')

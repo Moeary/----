@@ -7,6 +7,6 @@ llm = Ollama(base_url="http://localhost:11434",model="gemma:2b",)
 def get_completion_ollama(prompt):
     return llm.invoke(prompt)
 
-prompt = '写一句中文诗词'
+prompt = '你给我写个词法分析器吧。'
 res = get_completion_ollama(prompt=prompt)
 print(res)
