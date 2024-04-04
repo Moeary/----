@@ -64,4 +64,4 @@ def text_to_speech(text, output_audio_filename):
 
 # Call the function
 #speech_to_text('output.wav')
-text_to_speech('我的梦想是', 'output.wav')
+text_to_speech('你想成为什么样的人', 'output.wav')

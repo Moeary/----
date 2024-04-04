@@ -106,10 +106,10 @@ def main():
         return text
 
     iface = gr.Interface(fn=process, 
-                         inputs=[gr.Textbox(lines=4, placeholder="Enter your question here..."),gr.Dropdown(choices=get_voices(), label="Voice")], 
-                         outputs=["text"], 
-                         title="AI对话机器人",
-                         description="Enter some text and select a model and voice to synthesize speech.")
+                            inputs=[gr.Textbox(lines=4, placeholder="Enter your question here..."),gr.Dropdown(choices=get_voices(), label="Voice")], 
+                            outputs=["text"], 
+                            title="AI对话机器人",
+                            description="Enter some text and select a model and voice to synthesize speech.")
     iface.launch()
 
 if __name__ == "__main__":
