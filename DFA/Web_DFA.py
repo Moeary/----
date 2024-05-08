@@ -48,7 +48,7 @@ nfa4 = NFA(
     states={'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'},
     input_symbols={'a', 'b', '>', '<', '=', '!', '1'},
     transitions={
-        'A': {'a': {'B'}, 'b': {'B'}},
+        'A': {'a': {'B'}, 'b': {'B', 'C'}, '': {'B'}},
         'B': {'a': {'B'}, 'b': {'B', 'C'}},
         'C': {'b': {'D'}},
         'D': {'>': {'E', 'H'}, '<': {'E', 'I'}, '=': {'F'}, '!': {'J'}},
@@ -74,7 +74,7 @@ def run_dfa(input_str, nfa_choice):
     elif nfa_choice == '4':
         nfa = nfa4
     else:
-        return "错误的NFA选择，请选择1-4之间的数字！"
+        return "错误的NFA选择,请选择1-4之间的数字!"
 
     # Convert the chosen NFA to a DFA
     dfa = DFA.from_nfa(nfa)

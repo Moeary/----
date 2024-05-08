@@ -1,8 +1,17 @@
-from automata.fa.nfa import NFA
-from automata.fa.gnfa import GNFA
+from pyformlang.regular_expression import Regex
 
-nfa=NFA.from_regex('(a|b)*aa')
+def regex_to_transitions(regex_str):
+    regex = Regex(regex_str)
+    enfa = regex.to_epsilon_nfa().remove_epsilon_transitions()
+    transitions = {}
+    for state in enfa.states:
+        transitions[state] = {}
+        for symbol in enfa._input_symbols:
+            next_states = enfa(state, symbol)
+            if next_states:
+                transitions[state][symbol] = next_states
+    return transitions
 
-gnfa=GNFA.from_nfa(nfa).to_regex()
-
-print(gnfa)
+regex_str = "(a|b)*bb(>|<|>=|<=|==)1"
+transitions = regex_to_transitions(regex_str)
+print(transitions)
