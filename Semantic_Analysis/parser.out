@@ -6,8 +6,8 @@ Rule 0     S' -> L
 Rule 1     L -> E
 Rule 2     E -> E EQUALS T
 Rule 3     E -> E PLUS T
-Rule 4     E -> T
-Rule 5     T -> T MINUS F
+Rule 4     T -> T MINUS F
+Rule 5     E -> T
 Rule 6     T -> F
 Rule 7     F -> LPAREN E RPAREN
 Rule 8     F -> ID
@@ -17,7 +17,7 @@ Terminals, with rules where they appear
 EQUALS               : 2
 ID                   : 8
 LPAREN               : 7
-MINUS                : 5
+MINUS                : 4
 PLUS                 : 3
 RPAREN               : 7
 error                : 
@@ -25,7 +25,7 @@ error                :
 Nonterminals, with rules where they appear
 
 E                    : 1 2 3 7
-F                    : 5 6
+F                    : 4 6
 L                    : 0
 T                    : 2 3 4 5
 
@@ -37,8 +37,8 @@ state 0
     (1) L -> . E
     (2) E -> . E EQUALS T
     (3) E -> . E PLUS T
-    (4) E -> . T
-    (5) T -> . T MINUS F
+    (5) E -> . T
+    (4) T -> . T MINUS F
     (6) T -> . F
     (7) F -> . LPAREN E RPAREN
     (8) F -> . ID
@@ -70,13 +70,13 @@ state 2
 
 state 3
 
-    (4) E -> T .
-    (5) T -> T . MINUS F
+    (5) E -> T .
+    (4) T -> T . MINUS F
 
-    EQUALS          reduce using rule 4 (E -> T .)
-    PLUS            reduce using rule 4 (E -> T .)
-    $end            reduce using rule 4 (E -> T .)
-    RPAREN          reduce using rule 4 (E -> T .)
+    EQUALS          reduce using rule 5 (E -> T .)
+    PLUS            reduce using rule 5 (E -> T .)
+    $end            reduce using rule 5 (E -> T .)
+    RPAREN          reduce using rule 5 (E -> T .)
     MINUS           shift and go to state 9
 
 
@@ -96,8 +96,8 @@ state 5
     (7) F -> LPAREN . E RPAREN
     (2) E -> . E EQUALS T
     (3) E -> . E PLUS T
-    (4) E -> . T
-    (5) T -> . T MINUS F
+    (5) E -> . T
+    (4) T -> . T MINUS F
     (6) T -> . F
     (7) F -> . LPAREN E RPAREN
     (8) F -> . ID
@@ -123,7 +123,7 @@ state 6
 state 7
 
     (2) E -> E EQUALS . T
-    (5) T -> . T MINUS F
+    (4) T -> . T MINUS F
     (6) T -> . F
     (7) F -> . LPAREN E RPAREN
     (8) F -> . ID
@@ -137,7 +137,7 @@ state 7
 state 8
 
     (3) E -> E PLUS . T
-    (5) T -> . T MINUS F
+    (4) T -> . T MINUS F
     (6) T -> . F
     (7) F -> . LPAREN E RPAREN
     (8) F -> . ID
@@ -150,7 +150,7 @@ state 8
 
 state 9
 
-    (5) T -> T MINUS . F
+    (4) T -> T MINUS . F
     (7) F -> . LPAREN E RPAREN
     (8) F -> . ID
 
@@ -173,7 +173,7 @@ state 10
 state 11
 
     (2) E -> E EQUALS T .
-    (5) T -> T . MINUS F
+    (4) T -> T . MINUS F
 
     EQUALS          reduce using rule 2 (E -> E EQUALS T .)
     PLUS            reduce using rule 2 (E -> E EQUALS T .)
@@ -185,7 +185,7 @@ state 11
 state 12
 
     (3) E -> E PLUS T .
-    (5) T -> T . MINUS F
+    (4) T -> T . MINUS F
 
     EQUALS          reduce using rule 3 (E -> E PLUS T .)
     PLUS            reduce using rule 3 (E -> E PLUS T .)
@@ -196,13 +196,13 @@ state 12
 
 state 13
 
-    (5) T -> T MINUS F .
+    (4) T -> T MINUS F .
 
-    MINUS           reduce using rule 5 (T -> T MINUS F .)
-    EQUALS          reduce using rule 5 (T -> T MINUS F .)
-    PLUS            reduce using rule 5 (T -> T MINUS F .)
-    $end            reduce using rule 5 (T -> T MINUS F .)
-    RPAREN          reduce using rule 5 (T -> T MINUS F .)
+    MINUS           reduce using rule 4 (T -> T MINUS F .)
+    EQUALS          reduce using rule 4 (T -> T MINUS F .)
+    PLUS            reduce using rule 4 (T -> T MINUS F .)
+    $end            reduce using rule 4 (T -> T MINUS F .)
+    RPAREN          reduce using rule 4 (T -> T MINUS F .)
 
 
 state 14

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'EQUALS ID LPAREN MINUS PLUS RPARENL : EE : E EQUALS TE : E PLUS TE : TT : T MINUS FT : FF : LPAREN E RPARENF : ID'
+_lr_signature = 'EQUALS ID LPAREN MINUS PLUS RPARENL : EE : E EQUALS TE : E PLUS TT : T MINUS FE : TT : FF : LPAREN E RPARENF : ID'
     
-_lr_action_items = {'LPAREN':([0,5,7,8,9,],[5,5,5,5,5,]),'ID':([0,5,7,8,9,],[6,6,6,6,6,]),'$end':([1,2,3,4,6,11,12,13,14,],[0,-1,-4,-6,-8,-2,-3,-5,-7,]),'EQUALS':([2,3,4,6,10,11,12,13,14,],[7,-4,-6,-8,7,-2,-3,-5,-7,]),'PLUS':([2,3,4,6,10,11,12,13,14,],[8,-4,-6,-8,8,-2,-3,-5,-7,]),'RPAREN':([3,4,6,10,11,12,13,14,],[-4,-6,-8,14,-2,-3,-5,-7,]),'MINUS':([3,4,6,11,12,13,14,],[9,-6,-8,9,9,-5,-7,]),}
+_lr_action_items = {'LPAREN':([0,5,7,8,9,],[5,5,5,5,5,]),'ID':([0,5,7,8,9,],[6,6,6,6,6,]),'$end':([1,2,3,4,6,11,12,13,14,],[0,-1,-5,-6,-8,-2,-3,-4,-7,]),'EQUALS':([2,3,4,6,10,11,12,13,14,],[7,-5,-6,-8,7,-2,-3,-4,-7,]),'PLUS':([2,3,4,6,10,11,12,13,14,],[8,-5,-6,-8,8,-2,-3,-4,-7,]),'RPAREN':([3,4,6,10,11,12,13,14,],[-5,-6,-8,14,-2,-3,-4,-7,]),'MINUS':([3,4,6,11,12,13,14,],[9,-6,-8,9,9,-4,-7,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -27,12 +27,12 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> L","S'",1,None,None,None),
-  ('L -> E','L',1,'p_L','G1_Parse.py',18),
-  ('E -> E EQUALS T','E',3,'p_E_equals','G1_Parse.py',22),
-  ('E -> E PLUS T','E',3,'p_E_plus','G1_Parse.py',26),
-  ('E -> T','E',1,'p_E_T','G1_Parse.py',30),
-  ('T -> T MINUS F','T',3,'p_T_minus','G1_Parse.py',34),
-  ('T -> F','T',1,'p_T_F','G1_Parse.py',38),
-  ('F -> LPAREN E RPAREN','F',3,'p_F_paren','G1_Parse.py',42),
-  ('F -> ID','F',1,'p_F_id','G1_Parse.py',46),
+  ('L -> E','L',1,'p_L','G1_Parse.py',61),
+  ('E -> E EQUALS T','E',3,'p_E_equals','G1_Parse.py',65),
+  ('E -> E PLUS T','E',3,'p_E_plus','G1_Parse.py',70),
+  ('T -> T MINUS F','T',3,'p_T_minus','G1_Parse.py',76),
+  ('E -> T','E',1,'p_E_T','G1_Parse.py',83),
+  ('T -> F','T',1,'p_T_F','G1_Parse.py',87),
+  ('F -> LPAREN E RPAREN','F',3,'p_F_paren','G1_Parse.py',91),
+  ('F -> ID','F',1,'p_F_id','G1_Parse.py',95),
 ]
