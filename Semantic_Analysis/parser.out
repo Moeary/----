@@ -1,0 +1,217 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> L
+Rule 1     L -> E
+Rule 2     E -> E EQUALS T
+Rule 3     E -> E PLUS T
+Rule 4     E -> T
+Rule 5     T -> T MINUS F
+Rule 6     T -> F
+Rule 7     F -> LPAREN E RPAREN
+Rule 8     F -> ID
+
+Terminals, with rules where they appear
+
+EQUALS               : 2
+ID                   : 8
+LPAREN               : 7
+MINUS                : 5
+PLUS                 : 3
+RPAREN               : 7
+error                : 
+
+Nonterminals, with rules where they appear
+
+E                    : 1 2 3 7
+F                    : 5 6
+L                    : 0
+T                    : 2 3 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . L
+    (1) L -> . E
+    (2) E -> . E EQUALS T
+    (3) E -> . E PLUS T
+    (4) E -> . T
+    (5) T -> . T MINUS F
+    (6) T -> . F
+    (7) F -> . LPAREN E RPAREN
+    (8) F -> . ID
+
+    LPAREN          shift and go to state 5
+    ID              shift and go to state 6
+
+    L                              shift and go to state 1
+    E                              shift and go to state 2
+    T                              shift and go to state 3
+    F                              shift and go to state 4
+
+state 1
+
+    (0) S' -> L .
+
+
+
+state 2
+
+    (1) L -> E .
+    (2) E -> E . EQUALS T
+    (3) E -> E . PLUS T
+
+    $end            reduce using rule 1 (L -> E .)
+    EQUALS          shift and go to state 7
+    PLUS            shift and go to state 8
+
+
+state 3
+
+    (4) E -> T .
+    (5) T -> T . MINUS F
+
+    EQUALS          reduce using rule 4 (E -> T .)
+    PLUS            reduce using rule 4 (E -> T .)
+    $end            reduce using rule 4 (E -> T .)
+    RPAREN          reduce using rule 4 (E -> T .)
+    MINUS           shift and go to state 9
+
+
+state 4
+
+    (6) T -> F .
+
+    MINUS           reduce using rule 6 (T -> F .)
+    EQUALS          reduce using rule 6 (T -> F .)
+    PLUS            reduce using rule 6 (T -> F .)
+    $end            reduce using rule 6 (T -> F .)
+    RPAREN          reduce using rule 6 (T -> F .)
+
+
+state 5
+
+    (7) F -> LPAREN . E RPAREN
+    (2) E -> . E EQUALS T
+    (3) E -> . E PLUS T
+    (4) E -> . T
+    (5) T -> . T MINUS F
+    (6) T -> . F
+    (7) F -> . LPAREN E RPAREN
+    (8) F -> . ID
+
+    LPAREN          shift and go to state 5
+    ID              shift and go to state 6
+
+    E                              shift and go to state 10
+    T                              shift and go to state 3
+    F                              shift and go to state 4
+
+state 6
+
+    (8) F -> ID .
+
+    MINUS           reduce using rule 8 (F -> ID .)
+    EQUALS          reduce using rule 8 (F -> ID .)
+    PLUS            reduce using rule 8 (F -> ID .)
+    $end            reduce using rule 8 (F -> ID .)
+    RPAREN          reduce using rule 8 (F -> ID .)
+
+
+state 7
+
+    (2) E -> E EQUALS . T
+    (5) T -> . T MINUS F
+    (6) T -> . F
+    (7) F -> . LPAREN E RPAREN
+    (8) F -> . ID
+
+    LPAREN          shift and go to state 5
+    ID              shift and go to state 6
+
+    T                              shift and go to state 11
+    F                              shift and go to state 4
+
+state 8
+
+    (3) E -> E PLUS . T
+    (5) T -> . T MINUS F
+    (6) T -> . F
+    (7) F -> . LPAREN E RPAREN
+    (8) F -> . ID
+
+    LPAREN          shift and go to state 5
+    ID              shift and go to state 6
+
+    T                              shift and go to state 12
+    F                              shift and go to state 4
+
+state 9
+
+    (5) T -> T MINUS . F
+    (7) F -> . LPAREN E RPAREN
+    (8) F -> . ID
+
+    LPAREN          shift and go to state 5
+    ID              shift and go to state 6
+
+    F                              shift and go to state 13
+
+state 10
+
+    (7) F -> LPAREN E . RPAREN
+    (2) E -> E . EQUALS T
+    (3) E -> E . PLUS T
+
+    RPAREN          shift and go to state 14
+    EQUALS          shift and go to state 7
+    PLUS            shift and go to state 8
+
+
+state 11
+
+    (2) E -> E EQUALS T .
+    (5) T -> T . MINUS F
+
+    EQUALS          reduce using rule 2 (E -> E EQUALS T .)
+    PLUS            reduce using rule 2 (E -> E EQUALS T .)
+    $end            reduce using rule 2 (E -> E EQUALS T .)
+    RPAREN          reduce using rule 2 (E -> E EQUALS T .)
+    MINUS           shift and go to state 9
+
+
+state 12
+
+    (3) E -> E PLUS T .
+    (5) T -> T . MINUS F
+
+    EQUALS          reduce using rule 3 (E -> E PLUS T .)
+    PLUS            reduce using rule 3 (E -> E PLUS T .)
+    $end            reduce using rule 3 (E -> E PLUS T .)
+    RPAREN          reduce using rule 3 (E -> E PLUS T .)
+    MINUS           shift and go to state 9
+
+
+state 13
+
+    (5) T -> T MINUS F .
+
+    MINUS           reduce using rule 5 (T -> T MINUS F .)
+    EQUALS          reduce using rule 5 (T -> T MINUS F .)
+    PLUS            reduce using rule 5 (T -> T MINUS F .)
+    $end            reduce using rule 5 (T -> T MINUS F .)
+    RPAREN          reduce using rule 5 (T -> T MINUS F .)
+
+
+state 14
+
+    (7) F -> LPAREN E RPAREN .
+
+    MINUS           reduce using rule 7 (F -> LPAREN E RPAREN .)
+    EQUALS          reduce using rule 7 (F -> LPAREN E RPAREN .)
+    PLUS            reduce using rule 7 (F -> LPAREN E RPAREN .)
+    $end            reduce using rule 7 (F -> LPAREN E RPAREN .)
+    RPAREN          reduce using rule 7 (F -> LPAREN E RPAREN .)
+

@@ -95,7 +95,7 @@ grammar_tables = {
     "G3": {
         'D': {'int': 'T L', 'float': 'T L'},
         'T': {'int': 'int', 'float': 'float'},
-        'L': {'id': 'id R'},
+        'L': {'id': 'id R', 'int': 'T id R', 'float': 'T id R'},
         'R': {',': ', id R', '#': 'ε'}
     },
     "G4": {
@@ -125,6 +125,7 @@ def parse_interface(input_string, grammar_choice):
     elif grammar_choice == '2':
         for element in input_list:
             if element not in Vt['G2']:
+                print(element)
                 return f"错误：'{element}' 不在文法G2的终结符列表中。"
         return parse_G2_G3_G4(grammar_tables['G2'], input_list)
     elif grammar_choice == '3':
