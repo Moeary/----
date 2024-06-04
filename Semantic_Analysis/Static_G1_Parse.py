@@ -18,22 +18,20 @@ t_ignore = ' \t\n'
 lexer = lex.lex()
 
 # 定义全局变量
-id_count = 1
 id_map = {}
 # 符号表
 symbol_table = {}
 # 地址分配计数器
 address_counter = 1024
+# 三地址码列表
+intermediate_code = []
 
-# 为变量分配地址
-def allocate_address(var_name, var_type="int"):
+def allocate_address(symbol):
+    """为符号分配地址并更新符号表"""
     global address_counter
-    if var_name not in symbol_table:
-        symbol_table[var_name] = {
-            "address": address_counter,
-            "type": var_type
-        }
-        address_counter += 4
+    symbol_table[symbol] = {'address': address_counter, 'type': 'int'}
+    address_counter += 4  # 假设每个 int 占用 4 个字节
+
 # 生成三元式
 temp_count = 1
 temp_map = {}
@@ -63,13 +61,10 @@ def t_error(t):
 
 def p_L(p):
     '''L : ID EQUALS E'''
-    global id_map, id_count
-    if p[1] not in id_map:
-        id_map[p[1]] = f'id{id_count}'
-        allocate_address(id_map[p[1]])
-        id_count += 1
+    if p[1] not in symbol_table:
+        allocate_address(p[1])
     p[0] = p[3]
-    gen_code('=', p[3], id_map[p[1]])  # 赋值操作
+    gen_code('=', p[3], p[1])  # 赋值操作
 
 def p_E_plus(p):
     '''E : E PLUS T'''
@@ -97,19 +92,16 @@ def p_F_paren(p):
 
 def p_F_id(p):
     '''F : ID'''
-    global id_count
-    if p[1] not in id_map:
-        id_map[p[1]] = f'id{id_count}'
-        allocate_address(id_map[p[1]])
-        id_count += 1
-    p[0] = id_map[p[1]]
+    if p[1] not in symbol_table:
+        allocate_address(p[1])
+    p[0] = p[1]
 
 
 # 创建解析器
 parser = yacc.yacc()
 
 # 解析输入并输出结果
-input_string = "disc=b+b+b-a+c"
+input_string = "disc=b+b-a+c"
 result = parser.parse(input_string, lexer=lexer)
 print(f"L -> {result}")
 

@@ -2,216 +2,568 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Grammar
 
-Rule 0     S' -> L
-Rule 1     L -> E
-Rule 2     E -> E EQUALS T
-Rule 3     E -> E PLUS T
-Rule 4     T -> T MINUS F
-Rule 5     E -> T
-Rule 6     T -> F
-Rule 7     F -> LPAREN E RPAREN
-Rule 8     F -> ID
+Rule 0     S' -> program
+Rule 1     program -> declaration_list statement_list
+Rule 2     declaration_list -> declaration declaration_list
+Rule 3     declaration_list -> declaration
+Rule 4     declaration -> INT L SEMICOLON
+Rule 5     declaration -> FLOAT L SEMICOLON
+Rule 6     L -> ID R
+Rule 7     R -> COMMA ID R
+Rule 8     R -> <empty>
+Rule 9     statement_list -> statement statement_list
+Rule 10    statement_list -> statement
+Rule 11    statement -> E SEMICOLON
+Rule 12    E -> ID EQUALS E
+Rule 13    E -> E PLUS T
+Rule 14    E -> E MINUS T
+Rule 15    E -> T
+Rule 16    T -> T TIMES F
+Rule 17    T -> T DIVIDE F
+Rule 18    T -> T MOD F
+Rule 19    T -> F
+Rule 20    F -> LPAREN E RPAREN
+Rule 21    F -> ID
 
 Terminals, with rules where they appear
 
-EQUALS               : 2
-ID                   : 8
-LPAREN               : 7
-MINUS                : 4
-PLUS                 : 3
-RPAREN               : 7
+COMMA                : 7
+DIVIDE               : 17
+EQUALS               : 12
+FLOAT                : 5
+ID                   : 6 7 12 21
+INT                  : 4
+LPAREN               : 20
+MINUS                : 14
+MOD                  : 18
+PLUS                 : 13
+RPAREN               : 20
+SEMICOLON            : 4 5 11
+TIMES                : 16
 error                : 
 
 Nonterminals, with rules where they appear
 
-E                    : 1 2 3 7
-F                    : 4 6
-L                    : 0
-T                    : 2 3 4 5
+E                    : 11 12 13 14 20
+F                    : 16 17 18 19
+L                    : 4 5
+R                    : 6 7
+T                    : 13 14 15 16 17 18
+declaration          : 2 3
+declaration_list     : 1 2
+program              : 0
+statement            : 9 10
+statement_list       : 1 9
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . L
-    (1) L -> . E
-    (2) E -> . E EQUALS T
-    (3) E -> . E PLUS T
-    (5) E -> . T
-    (4) T -> . T MINUS F
-    (6) T -> . F
-    (7) F -> . LPAREN E RPAREN
-    (8) F -> . ID
+    (0) S' -> . program
+    (1) program -> . declaration_list statement_list
+    (2) declaration_list -> . declaration declaration_list
+    (3) declaration_list -> . declaration
+    (4) declaration -> . INT L SEMICOLON
+    (5) declaration -> . FLOAT L SEMICOLON
 
-    LPAREN          shift and go to state 5
-    ID              shift and go to state 6
+    INT             shift and go to state 4
+    FLOAT           shift and go to state 5
 
-    L                              shift and go to state 1
-    E                              shift and go to state 2
-    T                              shift and go to state 3
-    F                              shift and go to state 4
+    program                        shift and go to state 1
+    declaration_list               shift and go to state 2
+    declaration                    shift and go to state 3
 
 state 1
 
-    (0) S' -> L .
+    (0) S' -> program .
 
 
 
 state 2
 
-    (1) L -> E .
-    (2) E -> E . EQUALS T
-    (3) E -> E . PLUS T
+    (1) program -> declaration_list . statement_list
+    (9) statement_list -> . statement statement_list
+    (10) statement_list -> . statement
+    (11) statement -> . E SEMICOLON
+    (12) E -> . ID EQUALS E
+    (13) E -> . E PLUS T
+    (14) E -> . E MINUS T
+    (15) E -> . T
+    (16) T -> . T TIMES F
+    (17) T -> . T DIVIDE F
+    (18) T -> . T MOD F
+    (19) T -> . F
+    (20) F -> . LPAREN E RPAREN
+    (21) F -> . ID
 
-    $end            reduce using rule 1 (L -> E .)
-    EQUALS          shift and go to state 7
-    PLUS            shift and go to state 8
+    ID              shift and go to state 9
+    LPAREN          shift and go to state 12
 
+    statement_list                 shift and go to state 6
+    statement                      shift and go to state 7
+    E                              shift and go to state 8
+    T                              shift and go to state 10
+    F                              shift and go to state 11
 
 state 3
 
-    (5) E -> T .
-    (4) T -> T . MINUS F
+    (2) declaration_list -> declaration . declaration_list
+    (3) declaration_list -> declaration .
+    (2) declaration_list -> . declaration declaration_list
+    (3) declaration_list -> . declaration
+    (4) declaration -> . INT L SEMICOLON
+    (5) declaration -> . FLOAT L SEMICOLON
 
-    EQUALS          reduce using rule 5 (E -> T .)
-    PLUS            reduce using rule 5 (E -> T .)
-    $end            reduce using rule 5 (E -> T .)
-    RPAREN          reduce using rule 5 (E -> T .)
-    MINUS           shift and go to state 9
+    ID              reduce using rule 3 (declaration_list -> declaration .)
+    LPAREN          reduce using rule 3 (declaration_list -> declaration .)
+    INT             shift and go to state 4
+    FLOAT           shift and go to state 5
 
+    declaration                    shift and go to state 3
+    declaration_list               shift and go to state 13
 
 state 4
 
-    (6) T -> F .
+    (4) declaration -> INT . L SEMICOLON
+    (6) L -> . ID R
 
-    MINUS           reduce using rule 6 (T -> F .)
-    EQUALS          reduce using rule 6 (T -> F .)
-    PLUS            reduce using rule 6 (T -> F .)
-    $end            reduce using rule 6 (T -> F .)
-    RPAREN          reduce using rule 6 (T -> F .)
+    ID              shift and go to state 15
 
+    L                              shift and go to state 14
 
 state 5
 
-    (7) F -> LPAREN . E RPAREN
-    (2) E -> . E EQUALS T
-    (3) E -> . E PLUS T
-    (5) E -> . T
-    (4) T -> . T MINUS F
-    (6) T -> . F
-    (7) F -> . LPAREN E RPAREN
-    (8) F -> . ID
+    (5) declaration -> FLOAT . L SEMICOLON
+    (6) L -> . ID R
 
-    LPAREN          shift and go to state 5
-    ID              shift and go to state 6
+    ID              shift and go to state 15
 
-    E                              shift and go to state 10
-    T                              shift and go to state 3
-    F                              shift and go to state 4
+    L                              shift and go to state 16
 
 state 6
 
-    (8) F -> ID .
+    (1) program -> declaration_list statement_list .
 
-    MINUS           reduce using rule 8 (F -> ID .)
-    EQUALS          reduce using rule 8 (F -> ID .)
-    PLUS            reduce using rule 8 (F -> ID .)
-    $end            reduce using rule 8 (F -> ID .)
-    RPAREN          reduce using rule 8 (F -> ID .)
+    $end            reduce using rule 1 (program -> declaration_list statement_list .)
 
 
 state 7
 
-    (2) E -> E EQUALS . T
-    (4) T -> . T MINUS F
-    (6) T -> . F
-    (7) F -> . LPAREN E RPAREN
-    (8) F -> . ID
+    (9) statement_list -> statement . statement_list
+    (10) statement_list -> statement .
+    (9) statement_list -> . statement statement_list
+    (10) statement_list -> . statement
+    (11) statement -> . E SEMICOLON
+    (12) E -> . ID EQUALS E
+    (13) E -> . E PLUS T
+    (14) E -> . E MINUS T
+    (15) E -> . T
+    (16) T -> . T TIMES F
+    (17) T -> . T DIVIDE F
+    (18) T -> . T MOD F
+    (19) T -> . F
+    (20) F -> . LPAREN E RPAREN
+    (21) F -> . ID
 
-    LPAREN          shift and go to state 5
-    ID              shift and go to state 6
+    $end            reduce using rule 10 (statement_list -> statement .)
+    ID              shift and go to state 9
+    LPAREN          shift and go to state 12
 
-    T                              shift and go to state 11
-    F                              shift and go to state 4
+    statement                      shift and go to state 7
+    statement_list                 shift and go to state 17
+    E                              shift and go to state 8
+    T                              shift and go to state 10
+    F                              shift and go to state 11
 
 state 8
 
-    (3) E -> E PLUS . T
-    (4) T -> . T MINUS F
-    (6) T -> . F
-    (7) F -> . LPAREN E RPAREN
-    (8) F -> . ID
+    (11) statement -> E . SEMICOLON
+    (13) E -> E . PLUS T
+    (14) E -> E . MINUS T
 
-    LPAREN          shift and go to state 5
-    ID              shift and go to state 6
+    SEMICOLON       shift and go to state 18
+    PLUS            shift and go to state 19
+    MINUS           shift and go to state 20
 
-    T                              shift and go to state 12
-    F                              shift and go to state 4
 
 state 9
 
-    (4) T -> T MINUS . F
-    (7) F -> . LPAREN E RPAREN
-    (8) F -> . ID
+    (12) E -> ID . EQUALS E
+    (21) F -> ID .
 
-    LPAREN          shift and go to state 5
-    ID              shift and go to state 6
+    EQUALS          shift and go to state 21
+    TIMES           reduce using rule 21 (F -> ID .)
+    DIVIDE          reduce using rule 21 (F -> ID .)
+    MOD             reduce using rule 21 (F -> ID .)
+    SEMICOLON       reduce using rule 21 (F -> ID .)
+    PLUS            reduce using rule 21 (F -> ID .)
+    MINUS           reduce using rule 21 (F -> ID .)
+    RPAREN          reduce using rule 21 (F -> ID .)
 
-    F                              shift and go to state 13
 
 state 10
 
-    (7) F -> LPAREN E . RPAREN
-    (2) E -> E . EQUALS T
-    (3) E -> E . PLUS T
+    (15) E -> T .
+    (16) T -> T . TIMES F
+    (17) T -> T . DIVIDE F
+    (18) T -> T . MOD F
 
-    RPAREN          shift and go to state 14
-    EQUALS          shift and go to state 7
-    PLUS            shift and go to state 8
+    SEMICOLON       reduce using rule 15 (E -> T .)
+    PLUS            reduce using rule 15 (E -> T .)
+    MINUS           reduce using rule 15 (E -> T .)
+    RPAREN          reduce using rule 15 (E -> T .)
+    TIMES           shift and go to state 22
+    DIVIDE          shift and go to state 23
+    MOD             shift and go to state 24
 
 
 state 11
 
-    (2) E -> E EQUALS T .
-    (4) T -> T . MINUS F
+    (19) T -> F .
 
-    EQUALS          reduce using rule 2 (E -> E EQUALS T .)
-    PLUS            reduce using rule 2 (E -> E EQUALS T .)
-    $end            reduce using rule 2 (E -> E EQUALS T .)
-    RPAREN          reduce using rule 2 (E -> E EQUALS T .)
-    MINUS           shift and go to state 9
+    TIMES           reduce using rule 19 (T -> F .)
+    DIVIDE          reduce using rule 19 (T -> F .)
+    MOD             reduce using rule 19 (T -> F .)
+    SEMICOLON       reduce using rule 19 (T -> F .)
+    PLUS            reduce using rule 19 (T -> F .)
+    MINUS           reduce using rule 19 (T -> F .)
+    RPAREN          reduce using rule 19 (T -> F .)
 
 
 state 12
 
-    (3) E -> E PLUS T .
-    (4) T -> T . MINUS F
+    (20) F -> LPAREN . E RPAREN
+    (12) E -> . ID EQUALS E
+    (13) E -> . E PLUS T
+    (14) E -> . E MINUS T
+    (15) E -> . T
+    (16) T -> . T TIMES F
+    (17) T -> . T DIVIDE F
+    (18) T -> . T MOD F
+    (19) T -> . F
+    (20) F -> . LPAREN E RPAREN
+    (21) F -> . ID
 
-    EQUALS          reduce using rule 3 (E -> E PLUS T .)
-    PLUS            reduce using rule 3 (E -> E PLUS T .)
-    $end            reduce using rule 3 (E -> E PLUS T .)
-    RPAREN          reduce using rule 3 (E -> E PLUS T .)
-    MINUS           shift and go to state 9
+    ID              shift and go to state 9
+    LPAREN          shift and go to state 12
 
+    E                              shift and go to state 25
+    T                              shift and go to state 10
+    F                              shift and go to state 11
 
 state 13
 
-    (4) T -> T MINUS F .
+    (2) declaration_list -> declaration declaration_list .
 
-    MINUS           reduce using rule 4 (T -> T MINUS F .)
-    EQUALS          reduce using rule 4 (T -> T MINUS F .)
-    PLUS            reduce using rule 4 (T -> T MINUS F .)
-    $end            reduce using rule 4 (T -> T MINUS F .)
-    RPAREN          reduce using rule 4 (T -> T MINUS F .)
+    ID              reduce using rule 2 (declaration_list -> declaration declaration_list .)
+    LPAREN          reduce using rule 2 (declaration_list -> declaration declaration_list .)
 
 
 state 14
 
-    (7) F -> LPAREN E RPAREN .
+    (4) declaration -> INT L . SEMICOLON
 
-    MINUS           reduce using rule 7 (F -> LPAREN E RPAREN .)
-    EQUALS          reduce using rule 7 (F -> LPAREN E RPAREN .)
-    PLUS            reduce using rule 7 (F -> LPAREN E RPAREN .)
-    $end            reduce using rule 7 (F -> LPAREN E RPAREN .)
-    RPAREN          reduce using rule 7 (F -> LPAREN E RPAREN .)
+    SEMICOLON       shift and go to state 26
 
+
+state 15
+
+    (6) L -> ID . R
+    (7) R -> . COMMA ID R
+    (8) R -> .
+
+    COMMA           shift and go to state 28
+    SEMICOLON       reduce using rule 8 (R -> .)
+
+    R                              shift and go to state 27
+
+state 16
+
+    (5) declaration -> FLOAT L . SEMICOLON
+
+    SEMICOLON       shift and go to state 29
+
+
+state 17
+
+    (9) statement_list -> statement statement_list .
+
+    $end            reduce using rule 9 (statement_list -> statement statement_list .)
+
+
+state 18
+
+    (11) statement -> E SEMICOLON .
+
+    ID              reduce using rule 11 (statement -> E SEMICOLON .)
+    LPAREN          reduce using rule 11 (statement -> E SEMICOLON .)
+    $end            reduce using rule 11 (statement -> E SEMICOLON .)
+
+
+state 19
+
+    (13) E -> E PLUS . T
+    (16) T -> . T TIMES F
+    (17) T -> . T DIVIDE F
+    (18) T -> . T MOD F
+    (19) T -> . F
+    (20) F -> . LPAREN E RPAREN
+    (21) F -> . ID
+
+    LPAREN          shift and go to state 12
+    ID              shift and go to state 31
+
+    T                              shift and go to state 30
+    F                              shift and go to state 11
+
+state 20
+
+    (14) E -> E MINUS . T
+    (16) T -> . T TIMES F
+    (17) T -> . T DIVIDE F
+    (18) T -> . T MOD F
+    (19) T -> . F
+    (20) F -> . LPAREN E RPAREN
+    (21) F -> . ID
+
+    LPAREN          shift and go to state 12
+    ID              shift and go to state 31
+
+    T                              shift and go to state 32
+    F                              shift and go to state 11
+
+state 21
+
+    (12) E -> ID EQUALS . E
+    (12) E -> . ID EQUALS E
+    (13) E -> . E PLUS T
+    (14) E -> . E MINUS T
+    (15) E -> . T
+    (16) T -> . T TIMES F
+    (17) T -> . T DIVIDE F
+    (18) T -> . T MOD F
+    (19) T -> . F
+    (20) F -> . LPAREN E RPAREN
+    (21) F -> . ID
+
+    ID              shift and go to state 9
+    LPAREN          shift and go to state 12
+
+    E                              shift and go to state 33
+    T                              shift and go to state 10
+    F                              shift and go to state 11
+
+state 22
+
+    (16) T -> T TIMES . F
+    (20) F -> . LPAREN E RPAREN
+    (21) F -> . ID
+
+    LPAREN          shift and go to state 12
+    ID              shift and go to state 31
+
+    F                              shift and go to state 34
+
+state 23
+
+    (17) T -> T DIVIDE . F
+    (20) F -> . LPAREN E RPAREN
+    (21) F -> . ID
+
+    LPAREN          shift and go to state 12
+    ID              shift and go to state 31
+
+    F                              shift and go to state 35
+
+state 24
+
+    (18) T -> T MOD . F
+    (20) F -> . LPAREN E RPAREN
+    (21) F -> . ID
+
+    LPAREN          shift and go to state 12
+    ID              shift and go to state 31
+
+    F                              shift and go to state 36
+
+state 25
+
+    (20) F -> LPAREN E . RPAREN
+    (13) E -> E . PLUS T
+    (14) E -> E . MINUS T
+
+    RPAREN          shift and go to state 37
+    PLUS            shift and go to state 19
+    MINUS           shift and go to state 20
+
+
+state 26
+
+    (4) declaration -> INT L SEMICOLON .
+
+    INT             reduce using rule 4 (declaration -> INT L SEMICOLON .)
+    FLOAT           reduce using rule 4 (declaration -> INT L SEMICOLON .)
+    ID              reduce using rule 4 (declaration -> INT L SEMICOLON .)
+    LPAREN          reduce using rule 4 (declaration -> INT L SEMICOLON .)
+
+
+state 27
+
+    (6) L -> ID R .
+
+    SEMICOLON       reduce using rule 6 (L -> ID R .)
+
+
+state 28
+
+    (7) R -> COMMA . ID R
+
+    ID              shift and go to state 38
+
+
+state 29
+
+    (5) declaration -> FLOAT L SEMICOLON .
+
+    INT             reduce using rule 5 (declaration -> FLOAT L SEMICOLON .)
+    FLOAT           reduce using rule 5 (declaration -> FLOAT L SEMICOLON .)
+    ID              reduce using rule 5 (declaration -> FLOAT L SEMICOLON .)
+    LPAREN          reduce using rule 5 (declaration -> FLOAT L SEMICOLON .)
+
+
+state 30
+
+    (13) E -> E PLUS T .
+    (16) T -> T . TIMES F
+    (17) T -> T . DIVIDE F
+    (18) T -> T . MOD F
+
+    SEMICOLON       reduce using rule 13 (E -> E PLUS T .)
+    PLUS            reduce using rule 13 (E -> E PLUS T .)
+    MINUS           reduce using rule 13 (E -> E PLUS T .)
+    RPAREN          reduce using rule 13 (E -> E PLUS T .)
+    TIMES           shift and go to state 22
+    DIVIDE          shift and go to state 23
+    MOD             shift and go to state 24
+
+
+state 31
+
+    (21) F -> ID .
+
+    TIMES           reduce using rule 21 (F -> ID .)
+    DIVIDE          reduce using rule 21 (F -> ID .)
+    MOD             reduce using rule 21 (F -> ID .)
+    SEMICOLON       reduce using rule 21 (F -> ID .)
+    PLUS            reduce using rule 21 (F -> ID .)
+    MINUS           reduce using rule 21 (F -> ID .)
+    RPAREN          reduce using rule 21 (F -> ID .)
+
+
+state 32
+
+    (14) E -> E MINUS T .
+    (16) T -> T . TIMES F
+    (17) T -> T . DIVIDE F
+    (18) T -> T . MOD F
+
+    SEMICOLON       reduce using rule 14 (E -> E MINUS T .)
+    PLUS            reduce using rule 14 (E -> E MINUS T .)
+    MINUS           reduce using rule 14 (E -> E MINUS T .)
+    RPAREN          reduce using rule 14 (E -> E MINUS T .)
+    TIMES           shift and go to state 22
+    DIVIDE          shift and go to state 23
+    MOD             shift and go to state 24
+
+
+state 33
+
+    (12) E -> ID EQUALS E .
+    (13) E -> E . PLUS T
+    (14) E -> E . MINUS T
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    SEMICOLON       reduce using rule 12 (E -> ID EQUALS E .)
+    RPAREN          reduce using rule 12 (E -> ID EQUALS E .)
+    PLUS            shift and go to state 19
+    MINUS           shift and go to state 20
+
+  ! PLUS            [ reduce using rule 12 (E -> ID EQUALS E .) ]
+  ! MINUS           [ reduce using rule 12 (E -> ID EQUALS E .) ]
+
+
+state 34
+
+    (16) T -> T TIMES F .
+
+    TIMES           reduce using rule 16 (T -> T TIMES F .)
+    DIVIDE          reduce using rule 16 (T -> T TIMES F .)
+    MOD             reduce using rule 16 (T -> T TIMES F .)
+    SEMICOLON       reduce using rule 16 (T -> T TIMES F .)
+    PLUS            reduce using rule 16 (T -> T TIMES F .)
+    MINUS           reduce using rule 16 (T -> T TIMES F .)
+    RPAREN          reduce using rule 16 (T -> T TIMES F .)
+
+
+state 35
+
+    (17) T -> T DIVIDE F .
+
+    TIMES           reduce using rule 17 (T -> T DIVIDE F .)
+    DIVIDE          reduce using rule 17 (T -> T DIVIDE F .)
+    MOD             reduce using rule 17 (T -> T DIVIDE F .)
+    SEMICOLON       reduce using rule 17 (T -> T DIVIDE F .)
+    PLUS            reduce using rule 17 (T -> T DIVIDE F .)
+    MINUS           reduce using rule 17 (T -> T DIVIDE F .)
+    RPAREN          reduce using rule 17 (T -> T DIVIDE F .)
+
+
+state 36
+
+    (18) T -> T MOD F .
+
+    TIMES           reduce using rule 18 (T -> T MOD F .)
+    DIVIDE          reduce using rule 18 (T -> T MOD F .)
+    MOD             reduce using rule 18 (T -> T MOD F .)
+    SEMICOLON       reduce using rule 18 (T -> T MOD F .)
+    PLUS            reduce using rule 18 (T -> T MOD F .)
+    MINUS           reduce using rule 18 (T -> T MOD F .)
+    RPAREN          reduce using rule 18 (T -> T MOD F .)
+
+
+state 37
+
+    (20) F -> LPAREN E RPAREN .
+
+    TIMES           reduce using rule 20 (F -> LPAREN E RPAREN .)
+    DIVIDE          reduce using rule 20 (F -> LPAREN E RPAREN .)
+    MOD             reduce using rule 20 (F -> LPAREN E RPAREN .)
+    SEMICOLON       reduce using rule 20 (F -> LPAREN E RPAREN .)
+    PLUS            reduce using rule 20 (F -> LPAREN E RPAREN .)
+    MINUS           reduce using rule 20 (F -> LPAREN E RPAREN .)
+    RPAREN          reduce using rule 20 (F -> LPAREN E RPAREN .)
+
+
+state 38
+
+    (7) R -> COMMA ID . R
+    (7) R -> . COMMA ID R
+    (8) R -> .
+
+    COMMA           shift and go to state 28
+    SEMICOLON       reduce using rule 8 (R -> .)
+
+    R                              shift and go to state 39
+
+state 39
+
+    (7) R -> COMMA ID R .
+
+    SEMICOLON       reduce using rule 7 (R -> COMMA ID R .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 33 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 33 resolved as shift
